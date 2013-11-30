@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>eu.hurion.tadaah</groupId>
+    <artifactId>eu.hurion.tadaah</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <developers>
+        <developer>
+            <name>Nicolas Hurion</name>
+            <timezone>+1</timezone>
+        </developer>
+    </developers>
+
+    <modules>
+        <module>tadaah-spring-mvc</module>
+        <module>tadaah-service</module>
+        <module>tadaah-jpa</module>
+    </modules>
+
+    <packaging>pom</packaging>
+
+    <properties>
+        <spring.version>3.2.3.RELEASE</spring.version>
+        <metrics.version>3.0.1</metrics.version>
+        <slf4j.version>1.7.5</slf4j.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Own modules -->
+            <dependency>
+                <groupId>eu.hurion.tadaah</groupId>
+                <artifactId>tadaah-service</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>eu.hurion.tadaah</groupId>
+                <artifactId>tadaah-jpa</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+
+            <!-- Logging -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>1.0.6</version>
+            </dependency>
+
+            <!-- Spring 3 dependencies -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-mapper-asl</artifactId>
+                <version>1.9.10</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.codahale.metrics</groupId>
+                <artifactId>metrics-core</artifactId>
+                <version>${metrics.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.codahale.metrics</groupId>
+                <artifactId>metrics-jvm</artifactId>
+                <version>${metrics.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ryantenney.metrics</groupId>
+                <artifactId>metrics-spring</artifactId>
+                <version>3.0.0-RC3</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>servlet-api</artifactId>
+                <version>2.5</version>
+            </dependency>
+
+            <!-- Test -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.11</version>
+                <scope>test</scope>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>hamcrest-core</artifactId>
+                        <groupId>org.hamcrest</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-all</artifactId>
+                <version>1.3</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>1.9.5</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.jayway.jsonpath</groupId>
+                <artifactId>json-path</artifactId>
+                <version>0.8.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.jayway.jsonpath</groupId>
+                <artifactId>json-path-assert</artifactId>
+                <version>0.8.1</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <build>
+        <finalName>Tadaah</finalName>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.1</version>
+                    <configuration>
+                        <source>1.7</source>
+                        <target>1.7</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.cargo</groupId>
+                    <artifactId>cargo-maven2-plugin</artifactId>
+                    <version>1.4.5</version>
+                    <configuration>
+
+                        <!-- Container configuration -->
+                        <container>
+                            <containerId>tomcat7x</containerId>
+                            <zipUrlInstaller>
+                                <url>http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.47/bin/apache-tomcat-7.0.47.zip
+                                </url>
+                            </zipUrlInstaller>
+                            <!--
+                              Instead of downloading the container, you can also reuse an
+                              existing installation by settings its directory:
+
+                              <home>c:/apps/tomcat-6.0.32</home>
+                              -->
+                            <output>${project.build.directory}/tomcat7x/container.log</output>
+                            <append>false</append>
+                            <log>${project.build.directory}/tomcat7x/cargo.log</log>
+                        </container>
+
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>
