@@ -31,6 +31,7 @@ public class TodoJpa extends AbstractPersistable<Long> implements Todo {
         return title;
     }
 
+    @Override
     public TodoStatus getStatus() {
         return status;
     }
@@ -43,14 +44,17 @@ public class TodoJpa extends AbstractPersistable<Long> implements Todo {
         this.status = status;
     }
 
+    @Override
     public void startProgress(){
         this.status = TodoStatus.IN_PROGRESS;
     }
 
+    @Override
     public void stopProgress(){
         this.status = TodoStatus.TODO;
     }
 
+    @Override
     public void finish(){
         this.status = TodoStatus.DONE;
     }
