@@ -2,19 +2,31 @@ package eu.hurion.tadaah.jpa.model;
 
 import eu.hurion.tadaah.model.Todo;
 import eu.hurion.tadaah.model.TodoStatus;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
-public class TodoJpa implements Todo {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-    private final Long id;
-    private final String title;
+@Entity
+@Table(name = "todo")
+public class TodoJpa extends AbstractPersistable<Long> implements Todo {
+
+    @Column(name="title")
+    private  String title;
+    @Column(name="status")
     private TodoStatus status;
 
+    public TodoJpa() {
+    }
+
     public TodoJpa(final Long id, final String title) {
-        this.id = id;
+        this.setId(id);
         this.title = title;
         this.status = TodoStatus.TODO;
     }
 
+    @Override
     public String getTitle() {
         return title;
     }
@@ -23,8 +35,12 @@ public class TodoJpa implements Todo {
         return status;
     }
 
-    public Long getId() {
-        return id;
+    public void setTitle(final String title) {
+        this.title = title;
+    }
+
+    public void setStatus(final TodoStatus status) {
+        this.status = status;
     }
 
     public void startProgress(){

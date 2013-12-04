@@ -51,6 +51,10 @@
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-mapper-asl</artifactId>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.codehaus.jackson</groupId>-->
+            <!--<artifactId>jackson-core-asl</artifactId>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>com.ryantenney.metrics</groupId>
@@ -106,9 +110,14 @@
             <plugin>
                 <groupId>org.codehaus.cargo</groupId>
                 <artifactId>cargo-maven2-plugin</artifactId>
+
                 <configuration>
+                    <container>
+                        <containerId>tomcat7x</containerId>
+                    </container>
                     <configuration>
-                        <type>standalone</type>
+                        <type>existing</type>
+                        <!--<type>standalone</type>-->
                         <home>/Users/nicolashurion/servers/apache-tomcat-7.0.47/</home>
                         <properties>
                             <cargo.servlet.port>8080</cargo.servlet.port>

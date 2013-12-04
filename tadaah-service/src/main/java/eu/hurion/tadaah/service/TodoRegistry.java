@@ -9,4 +9,6 @@ public interface TodoRegistry {
     List<Todo> getTodos();
 
     Todo getTodo(Long id);
+
+    Todo save(Todo todo);
 }
