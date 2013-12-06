@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/tadaah-jpa-beans.xml")
-public class TodoRegistryJpaTest {
+public class TodoRegistrySpringDataTest {
 
     @Autowired
     private TodoRegistrySpringData registry;
@@ -26,5 +26,8 @@ public class TodoRegistryJpaTest {
         TodoJpa todo = new TodoJpa(1l, "todo");
         registry.save(todo);
         assertEquals(1, registry.count());
+        final TodoJpa one = registry.findOne(1l);
+        assertEquals(todo.getTitle(), one.getTitle());
+        assertEquals(todo.getStatus(), one.getStatus());
     }
 }
