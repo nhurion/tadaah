@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -16,19 +17,27 @@ public class TodoController {
     private TodoRegistry todoRegistry;
 
     @RequestMapping(value = "/todo", method = RequestMethod.GET)
-    public @ResponseBody List<Todo> getToDoList() {
-        return todoRegistry.getTodos();
+    public @ResponseBody List<TodoDTO> getToDoList() {
+        final List<Todo> todos = todoRegistry.getTodos();
+        final List<TodoDTO> result = new ArrayList<>(todos.size());
+        for (Todo todo : todos) {
+            result.add(new TodoDTO(todo));
+        }
+        return result;
     }
 
     @RequestMapping(value = "/todo/{id}", method = RequestMethod.GET)
     public @ResponseBody
-    Todo getToDo(@PathVariable Long id) {
-        return todoRegistry.getTodo(id);
+    TodoDTO getToDo(@PathVariable Long id) {
+        final Todo todo = todoRegistry.getTodo(id);
+        return new TodoDTO(todo);
     }
 
     @RequestMapping(value = "/todo", method = RequestMethod.POST)
     public @ResponseBody Todo save(@RequestBody TodoDTO todo){
-        return todoRegistry.save(todo);
+        final Todo savedTodo = todoRegistry.save(todo);
+        TodoDTO dto = new TodoDTO(savedTodo);
+        return dto;
     }
 
     @RequestMapping(value = "/todo/{id}", method = RequestMethod.DELETE)

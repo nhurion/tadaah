@@ -8,10 +8,4 @@ public interface Todo {
 
     public Long getId();
 
-    public void startProgress();
-
-    public void stopProgress();
-
-    public void finish();
-
 }

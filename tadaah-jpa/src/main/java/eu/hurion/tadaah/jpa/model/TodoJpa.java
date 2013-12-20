@@ -12,18 +12,22 @@ import javax.persistence.Table;
 @Table(name = "todo")
 public class TodoJpa extends AbstractPersistable<Long> implements Todo {
 
-    @Column(name="title")
-    private  String title;
-    @Column(name="status")
+    @Column(name = "title")
+    private String title;
+    @Column(name = "status")
     private TodoStatus status;
 
     public TodoJpa() {
     }
 
     public TodoJpa(final Long id, final String title) {
+        this(id, title, TodoStatus.TODO);
+    }
+
+    public TodoJpa(final Long id, final String title, final TodoStatus status) {
         this.setId(id);
-        this.title = title;
-        this.status = TodoStatus.TODO;
+        this.setTitle(title);
+        this.setStatus(status);
     }
 
     @Override
@@ -44,18 +48,15 @@ public class TodoJpa extends AbstractPersistable<Long> implements Todo {
         this.status = status;
     }
 
-    @Override
-    public void startProgress(){
+    public void startProgress() {
         this.status = TodoStatus.IN_PROGRESS;
     }
 
-    @Override
-    public void stopProgress(){
+    public void stopProgress() {
         this.status = TodoStatus.TODO;
     }
 
-    @Override
-    public void finish(){
+    public void finish() {
         this.status = TodoStatus.DONE;
     }
 

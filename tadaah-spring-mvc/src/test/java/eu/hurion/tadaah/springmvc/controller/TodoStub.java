@@ -30,15 +30,4 @@ public class TodoStub implements Todo {
         return id;
     }
 
-    @Override
-    public void startProgress() {
-    }
-
-    @Override
-    public void stopProgress() {
-    }
-
-    @Override
-    public void finish() {
-    }
 }

@@ -35,7 +35,7 @@ public class TodoRegistryJpa implements TodoRegistry {
         if (todo instanceof TodoJpa){
             saveInstance = (TodoJpa) todo;
         } else {
-            saveInstance = new TodoJpa(todo.getId(),todo.getTitle());
+            saveInstance = new TodoJpa(todo.getId(),todo.getTitle(), todo.getStatus());
         }
         return springDataRegistry.save(saveInstance);
     }

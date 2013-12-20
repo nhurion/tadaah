@@ -16,9 +16,9 @@
     </developers>
 
     <modules>
-        <module>tadaah-spring-mvc</module>
-        <module>tadaah-service</module>
         <module>tadaah-jpa</module>
+        <module>tadaah-service</module>
+        <module>tadaah-spring-mvc</module>
     </modules>
 
     <packaging>pom</packaging>

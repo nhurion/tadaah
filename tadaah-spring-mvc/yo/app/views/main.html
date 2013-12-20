@@ -1,0 +1,43 @@
+<div class="header">
+  <ul class="nav nav-pills pull-right">
+    <li class="active"><a ng-href="#">Home</a></li>
+  </ul>
+  <h3 class="text-muted">Tadaah</h3>
+</div>
+
+<div class="span4 sidebar-content">
+  <h2>Todos sososos</h2>
+
+  <div class="todo"
+       ng-repeat="todo in todos"
+       ng-click="setCurrentTodo(todo)">
+    <h4>{{todo.id}}</h4>
+    <p>{{todo.title}}</p>
+  </div>
+</div>
+
+<div class="span6 body-content">
+  <h2>Todo</h2>
+  <form class="form-horizontal">
+    <div class="control-group">
+      <label class="control-label" for="inputTitle">Title</label>
+      <div class="controls">
+        <input  id="inputTitle"
+                type="text"
+               placeholder="Title"
+               ng-model="currentTodo.title">
+      </div>
+    </div>
+    <!--<div class="control-group">-->
+      <!--<label class="control-label"-->
+             <!--for="inputDescription">Description</label>-->
+      <!--<div class="controls">-->
+        <!--<textarea id="inputDescription"-->
+                  <!--placeholder="Description"-->
+                  <!--rows="3"-->
+                  <!--ng-model="currentTodo.description">-->
+        <!--</textarea>-->
+      <!--</div>-->
+    <!--</div>-->
+  </form>
+</div>
