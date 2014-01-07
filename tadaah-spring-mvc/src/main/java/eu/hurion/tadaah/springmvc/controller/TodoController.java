@@ -17,7 +17,8 @@ public class TodoController {
     private TodoRegistry todoRegistry;
 
     @RequestMapping(value = "/todo", method = RequestMethod.GET)
-    public @ResponseBody List<TodoDTO> getToDoList() {
+    @ResponseBody
+    public List<TodoDTO> getToDoList() {
         final List<Todo> todos = todoRegistry.getTodos();
         final List<TodoDTO> result = new ArrayList<>(todos.size());
         for (Todo todo : todos) {
@@ -27,17 +28,17 @@ public class TodoController {
     }
 
     @RequestMapping(value = "/todo/{id}", method = RequestMethod.GET)
-    public @ResponseBody
-    TodoDTO getToDo(@PathVariable Long id) {
+    @ResponseBody
+    public TodoDTO getToDo(@PathVariable Long id) {
         final Todo todo = todoRegistry.getTodo(id);
         return new TodoDTO(todo);
     }
 
     @RequestMapping(value = "/todo", method = RequestMethod.POST)
-    public @ResponseBody Todo save(@RequestBody TodoDTO todo){
+    @ResponseBody
+    public Todo save(@RequestBody TodoDTO todo) {
         final Todo savedTodo = todoRegistry.save(todo);
-        TodoDTO dto = new TodoDTO(savedTodo);
-        return dto;
+        return new TodoDTO(savedTodo);
     }
 
     @RequestMapping(value = "/todo/{id}", method = RequestMethod.DELETE)
@@ -45,6 +46,7 @@ public class TodoController {
     }
 
     public void setTodoRegistry(final TodoRegistry todoRegistry) {
+
         this.todoRegistry = todoRegistry;
     }
 }

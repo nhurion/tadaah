@@ -26,8 +26,8 @@ public class TodoJpa extends AbstractPersistable<Long> implements Todo {
 
     public TodoJpa(final Long id, final String title, final TodoStatus status) {
         this.setId(id);
-        this.setTitle(title);
-        this.setStatus(status);
+        this.title = title;
+        this.status = status;
     }
 
     @Override
